@@ -1,14 +1,16 @@
 <template>
   <div class='col-sm-4 indList'>
+    <div class='well'>
     <h4>List Name:</h4>
     <p>{{list.name}}</p><br>
     <p>Description: {{list.description}}</p><button class="btn btn-xs btn-default" @click="removeList"><span class="glyphicon glyphicon-trash"></span></button><br>
+    </div>
     <a @click="taskToggle" v-show="listTasks1">
-      <h3>Show Tasks</h3>
+      <h3>Show Tasks <span class="glyphicon glyphicon-chevron-down"></span></h3>
     </a>
     <div class='listTasks' v-show="listTasks">
       <a @click="taskToggle">
-        <h3>Hide Tasks</h3>
+        <h3>Hide Tasks <span class="glyphicon glyphicon-chevron-up"></span></h3>
       </a>
       <div>
         <task v-for="task in tasks" :task='task'></task>
@@ -107,9 +109,14 @@
     border-radius: 15px 15px;
     background: brown;
     box-shadow: 10px 10px 100px #ff6666;
+    color: antiquewhite
   }
   a{
     color: black;
     text-shadow: 0px 0px;
+  }
+  .well{
+    background: #a6a6a6;
+    padding: 5px;
   }
 </style>

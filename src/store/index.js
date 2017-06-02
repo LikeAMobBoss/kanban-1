@@ -47,7 +47,6 @@ export default new Vuex.Store({
       state.activeLists = data.lists;
     },
     setActiveList(state, activeList) {
-      debugger
       state.activeList = activeList
     },
     setActiveLists(state, activeLists) {
@@ -162,6 +161,7 @@ export default new Vuex.Store({
     getTask({ commit, dispatch }, list) {
       api('boards/' + list.boardId + '/list/' + list._id)
         .then(res => {
+          debugger
           commit('setActiveTasks', res.data.data)
         })
         .catch(handleError)
@@ -169,13 +169,12 @@ export default new Vuex.Store({
     getComments({ commit, dispatch }, task) {
       api('boards/' + task.boardId + '/list/' + task.listId +'/tasks/' + task._id)
         .then(res => {
-          console.log('comments response')
+          console.log(res)
           commit('setActiveComments', res.data.data)
         })
         .catch(handleError)
     },
     createTask({ commit, dispatch }, task) {
-      debugger
       api.post('tasks', task)
         .then(res => {
           dispatch('getTask', {boardId: task.boardId, _id: task.listId})
@@ -186,25 +185,24 @@ export default new Vuex.Store({
       console.log("sending to server")
       api.delete('tasks/' + task._id)
         .then(res => {
-          debugger
           console.log("sending to getList")
-          dispatch('getList', {boardId: task.boardId, _id: task.listId})
+          dispatch('getTask', {boardId: task.boardId, _id: task.listId})
         })
         .catch(handleError)
     },
-    createComment({ commit, dispatch }, task) {
-      debugger
-      api.post('comments', task)
+    createComment({ commit, dispatch }, comment) {
+      api.post('comments', comment)
         .then(res => {
-          debugger
-          dispatch('getComments', task)
+          console.log('createResponse ', res)
+          comment._id = comment.taskId;
+          dispatch('getComments', comment)
         })
         .catch(handleError)
     },
     removeComment({ commit, dispatch }, comment) {
-      api.delete('tasks/' + comment.taskId)
+      api.delete('comments/' + comment._id)
         .then(res => {
-          dispatch('getComments', {boardId: comment.boardId, listId: comment.listId, _id: comment._id})
+          dispatch('getComments', {boardId: comment.boardId, listId: comment.listId, _id: comment.taskId})
         })
         .catch(handleError)
     }

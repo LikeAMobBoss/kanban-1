@@ -1,6 +1,15 @@
 <template>
   <div class = 'indTask'>
-    <p>Task Name: {{task.name}} <br> Description: {{task.description}}</p><button class = "btn btn-xs btn-default" @click="removeTask"><span class="glyphicon glyphicon-trash"></span></button><br>
+  <div class = 'well'>
+    <p>Task Name: {{task.name}} <br> Description: {{task.description}}</p><button class = "btn btn-xs btn-default" @click="removeTask"><span class="glyphicon glyphicon-trash"></span></button>
+    </div><br>
+     <a @click="commentToggle" v-show="taskComments1">
+      <h5>Show Comments <span class="glyphicon glyphicon-chevron-down"></span></h5>
+    </a>
+    <div class = 'taskComments' v-show = 'taskComments'>
+    <a @click="commentToggle">
+        <h5>Hide Comment <span class="glyphicon glyphicon-chevron-up"></span></h5>
+      </a>
     <comments v-for="comment in comments" :comment='comment'></comments>
     <button type="button" class="btn btn-primary" @click="commentFormToggle" v-show="addCommentButton">Add a Comment</button><br><br>
     <div class="commentForm" v-show="newComment">
@@ -11,6 +20,7 @@
           <button type="submit" class="btn btn-primary" id="create-comment-button" @click="commentFormToggleBack">Create New Comment</button><button type="button" class="btn btn-primary" @click="commentFormToggleBack">Cancel</button>
         </div>
       </form>
+    </div>
     </div>
     <br><br>
   </div>
@@ -26,7 +36,9 @@
         name: '',
         description: '',
         newComment: false,
-        addCommentButton: true
+        addCommentButton: true,
+        taskComments: false,
+        taskComments1: true
       }
     },
     created() {
@@ -47,12 +59,21 @@
         this.newComment = true;
         this.addCommentButton = false;
       },
+      commentToggle() {
+        if (this.taskComments == false) {
+          this.taskComments = true;
+          this.taskComments1 = false;
+        } else {
+          this.taskComments = false;
+          this.taskComments1 = true;
+        }
+      },
       commentFormToggleBack() {
         this.newComment = false;
         this.addCommentButton = true;
       },
       removeTask(){
-        console.log("component firing")
+        console.log("removeTask firing")
         this.$store.dispatch('removeTask', this.task)
       }
     },
@@ -80,7 +101,16 @@
   margin: 5px;
   border-radius: 15px 15px;
   background: green;
-  box-shadow: 1px 5px 25px #70db70;
+  box-shadow: 1px 5px 25px #80ffff;
+  color: black;
+
+}
+a{
+  color: black;
+  box-shadow: 0px 0px;
+}
+.well{
+  background: #ccffcc;
 }
 
 </style>
