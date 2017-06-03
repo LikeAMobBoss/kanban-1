@@ -1,4 +1,6 @@
 <template>
+<div class = "container-fluid">
+<div class = "boardsBody">
   <div id="boards-view">
     <button type="button"class='btn btn-primary' @click="boardFormToggle" v-show="addBoardButton">Add a Board</button>
     <button type="button" class='btn btn-primary'><router-link to="login">Login/Register</router-link></button><br><br>
@@ -19,6 +21,8 @@
         </div>
       </div>
     </div>
+  </div>
+  </div>
   </div>
 </template>
 
@@ -71,7 +75,6 @@
 
 #myBoards{
   align-content: center;
-  background: green;
 }
 .eachBoard{
   border: 1px solid black;
@@ -83,8 +86,9 @@
 a{
   color:antiquewhite;
 }
-body{
-  background: blue;
+.boardsBody{
+  background: url('https://slack-imgs.com/?c=1&url=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1495141929506-f34c93658f5d%3Fdpr%3D1%26auto%3Dcompress%2Cformat%26fit%3Dcrop%26w%3D1199%26h%3D1799%26q%3D80%26cs%3Dtinysrgb%26crop%3D%26bg%3D') no-repeat center center fixed;
+  background-size: 100% 100%
 }
 
 </style>
