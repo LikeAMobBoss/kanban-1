@@ -7,7 +7,7 @@ import io from 'socket.io-client'
 import store from './store'
 
 console.log('STORE',store) 
-let socket = io('https://vue-kanban-k.herokuapp.com/')
+let socket = io('https://vue-kanban-i.herokuapp.com/')
 
 socket.on('CONNECTED', function (data) {
   console.log(data)
